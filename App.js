@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Linking, StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { Linking, StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView } from 'react-native';
 
 
 TouchableOpacity.defaultProps = { activeOpacity: 0.1 }; //used to disappears when clicked
@@ -9,73 +9,97 @@ export default function App() {
   const [count, setCount] = useState(0)
 
 
-  const onButtonPress = () => {
-    setCount(count+1)
-  }
 
   return (
-    <View style={styles.body}>
-      <Text style= {styles.text}>{count * 5}</Text>
-      <AppButton title='ADD' size="sm" backgroundColor="#eee" onPress={onButtonPress} />
-      <Text style={styles.text}>You clicked {count} times</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.body}>
+      <View style={styles.viewLine1}>
+        <View style={styles.view1}>
+          <Text style={styles.text}>1</Text>
+        </View>
+        <View style={styles.view2}>
+          <Text style={styles.text}>2</Text>
+        </View>
+        <View style={styles.view3}>
+          <Text style={styles.text}>3</Text>
+        </View>
+      </View>
+      <View style={styles.view4}>
+        <Text style={styles.text}>4</Text>
+      </View>
+      <View style={styles.view5}>
+        <Text style={styles.text}>5</Text>
+      </View>
+      <View style={styles.viewLine2}>
+        <View style={styles.view6}>
+          <Text style={styles.text}>6</Text>
+        </View>
+        <View style={styles.view7}>
+          <Text style={styles.text}>7</Text>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
 
-const AppButton = ({ onPress, title, size, backgroundColor }) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={[
-      styles.appButtonContainer,
-      size === "sm" && {
-        paddingHorizontal: 8,
-        paddingVertical: 6,
-        elevation: 6
-      },
-      backgroundColor && { backgroundColor }
-    ]}
-  >
-    <Text style={[styles.appButtonText, size === "sm" && { fontSize: 14 }]}>
-      {title}
-    </Text>
-  </TouchableOpacity>
-);
-
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: '#00f',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
+  viewLine1: {
+    flexDirection: 'row',
 
+  },
+  viewLine2: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+  view1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#5FF'
+  },
+  view2: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#E401E4'
+  },
+  view3: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F3F303'
+  },
+  view4: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f00'
+  },
+  view5: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0f0'
+  },
+  view6: {
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  },
+  view7: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00f'
+  },
   text: {
-    color: '#fff',
+    color: '#000',
     fontSize: 25,
     fontStyle: 'italic',
     margin: 10,
   },
-
-  buttonSample: {
-    backgroundColor: '#EEE',
-    color: '#000',
-    fontSize: 15,
-  },
-  appButtonContainer: {
-    width: '90%',
-    elevation: 8,
-    backgroundColor: "#eee",
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-  },
-  appButtonText: {
-    fontSize: 18,
-    color: "#333",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
-  }
 });

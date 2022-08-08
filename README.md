@@ -1,1 +1,1 @@
-A simple Count Click App using States a custom button to appears identical on iOS and Android devices.
+An App to learn abou the controll Flex Objects.
