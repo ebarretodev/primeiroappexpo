@@ -1,5 +1,1 @@
-Install resources
-
-npm i -g expo-cli
-expo init .
-
+A simple Count Click App using States a custom button to appears identical on iOS and Android devices.
