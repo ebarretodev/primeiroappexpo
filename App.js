@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Linking, StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, ScrollView, RefreshControl, Platform, StatusBar, FlatList } from 'react-native';
+import { Linking, StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, ScrollView, RefreshControl, Platform, StatusBar, FlatList, SectionList } from 'react-native';
 
 
 TouchableOpacity.defaultProps = { activeOpacity: 0.1 }; //used to disappears when clicked
@@ -19,7 +19,7 @@ export default function App() {
     { item: 'Item 98' },
   ])
 
-  const DATA = [
+  const [data, setData] = useState([
     {
       title: 'Title 1',
       data: [ 'Item 1-1', 'Item 1-2', 'Item 1-3']
@@ -36,24 +36,33 @@ export default function App() {
       title: 'Title 4',
       data: [ 'Item 4-1', 'Item 4-2', 'Item 4-3']
     },
-  ]
+  ])
 
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = () => {
     setRefreshing(true)
-    setItems([...items, { item: 'Item 69' }])
+    let nextValue = data.length + 1
+    setData([...data, {
+      title: `Title ${nextValue}`,
+      data: [`Item ${nextValue}-1`, `Item ${nextValue}-2`, `Item ${nextValue}-3`]
+    },])
     setRefreshing(false)
   }
 
 
   return (
     <SafeAreaView style={styles.safeArea} >
-      <FlatList
-        data={items}
-        renderItem={({ item, index }) => (
-          <View style={styles.item} key={index.toString()}>
-            <Text style={styles.text}>{item.item}</Text>
+      <SectionList
+        sections={data}
+        renderItem={({ item }) => (
+          <View style={styles.item} >
+            <Text style={styles.text}>{item}</Text>
+          </View>
+        )}
+        renderSectionHeader={({ section }) => (
+          <View style={styles.header}>
+            <Text style={styles.text}>{section.title}</Text>
           </View>
         )}
         refreshControl={
@@ -64,21 +73,6 @@ export default function App() {
           />
         }
       />
-
-      {/* <ScrollView
-        style={styles.body}
-
-      >
-        {
-          items.map((i) => {
-            return (
-              <View style={styles.item} key={i.key}>
-                <Text style={styles.text}>{i.item}</Text>
-              </View>
-            )
-          })
-        }
-        </ScrollView> */}
         </SafeAreaView>
         );
 }
@@ -97,10 +91,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   item: {
-    backgroundColor: '#4ae1fa',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10
+    borderWidth: 1,
+    borderColor: '#A6A6A6'
+  },
+  header: {
+    fontSize: 32,
+    backgroundColor: '#4BE2FD',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 3,
+    borderColor: '#000'
   },
   text: {
     color: '#000',
