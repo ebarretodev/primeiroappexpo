@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Linking, StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, ScrollView, RefreshControl, Platform, StatusBar, FlatList, SectionList, TextInput, Alert, Modal, Pressable } from 'react-native';
+import { Linking, StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, ScrollView, RefreshControl, Platform, StatusBar, FlatList, SectionList, TextInput, Alert, Modal, Pressable, ImageBackground } from 'react-native';
 
 TouchableOpacity.defaultProps = { activeOpacity: 0.1 }; //used to disappears when clicked
 
@@ -27,13 +27,21 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.safeArea} >
-      <View style={styles.body}>
+      <StatusBar
+        backgroundColor='#fff'
+        barStyle='dark-content'
+      />
+      <ImageBackground
+        style={styles.body}
+        resizeMode='stretch'
+        source={{
+          uri: 'https://www.adobe.com/express/create/media_1f567ece896acb3fa96b8f7d730a9a236727c1c88.jpeg?width=400&format=jpeg&optimize=medium'
+        }}
+      >
         <Modal
           visible={showWarning}
           onRequestClose={() => { setShowWarning(false) }}
           transparent
-
-
         >
           <View style={styles.centeredView}>
             <View style={styles.warningModal}>
@@ -52,25 +60,34 @@ export default function App() {
             </View>
           </View>
         </Modal>
-        <Text style={styles.text} > Please write your name:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder='e.g. John'
-          value={name}
-          onChangeText={value => setName(value)}
-          secureTextEntry={visible} da
-        />
-        <Button title={visible ? 'Show' : 'Hide'} onPress={onPressHandler} />
+        <ScrollView style={styles.scroll}>
+          <View style={styles.body}>
+          <Text style={styles.text} > Please write your name:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder='e.g. John'
+            value={name}
+            onChangeText={value => setName(value)}
+            secureTextEntry={visible} da
+          />
+            <Pressable
+              onPress={onPressHandler}
+              style={styles.button}
+            >
+              <Text style={styles.text}>{visible ? 'Show' : 'Hide'}</Text>
+          </Pressable>
 
-        <Pressable
-          onPress={onPressShowModal}
-          style={styles.button}
-        >
-          <Text style={styles.text}>Show Warning</Text>
-        </Pressable>
+          <Pressable
+            onPress={onPressShowModal}
+            style={styles.button}
+          >
+            <Text style={styles.text}>Show Warning</Text>
+          </Pressable>
 
-        <Text style={styles.text} > Your name is {name}</Text>
-      </View>
+            <Text style={styles.text} > Your name is {name}</Text>
+          </View>
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
@@ -80,12 +97,13 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+    paddingTop: Platform.OS === "android" ? 0 : 0
+  },
+  scroll: {
+    width: '100%'
   },
   body: {
     flex: 1,
-    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -103,8 +121,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     padding: 10,
     textAlign: 'center',
-    margin: 10
-
+    margin: 10,
+    backgroundColor: '#fff'
   },
   centeredView: {
     flex: 1,
@@ -113,8 +131,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000099'
   },
   button: {
-    backgroundColor: '#0f0',
+    backgroundColor: '#29ffc9',
     borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#aaa',
     margin: 10
   },
   warningModal: {
