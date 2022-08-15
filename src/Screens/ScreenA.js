@@ -4,8 +4,8 @@ import { StyleSheet, View, Text, Pressable } from 'react-native';
 const ScreenA = ({ navigation }) => {
 
     const onPressHandler = () => {
-        // navigation.navigate('Screen_B')
-        navigation.replace('Screen_B')
+        navigation.navigate('Screen_B')
+        // navigation.replace('Screen_B')
     }
 
     return (
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     text: {
-        fontSize: 40,
+        fontSize: 35,
         fontWeight: 'bold',
         margin: 10,
     },
